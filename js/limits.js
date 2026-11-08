@@ -1,7 +1,12 @@
-const env= window.ENV||{};
+// const env= window.ENV||{};
 const limits={
-    url: env.API_URL || "https://api.jikan.moe/v4",
-    wait: env.wait || 1200,
+    url:"https://api.jikan.moe/v4",
+    backupUrl: "https://graphql.anilist.co",
+    wait: 1200,
+    tries: 2,
+    timeoutMs:8000,
+    skipMs:60000,
+    cacheMs: 6*60*60*1000,
     perPage:25,
     pools:{
         top:{pages:2,mult:1},
@@ -9,7 +14,7 @@ const limits={
     },
     h1:{
         pts: 100,
-        rollMd: 480,
+        rollMs: 480,
         holdMs:950
     },
     clues:{startPts:400,stepCost:100},
@@ -17,5 +22,6 @@ const limits={
         time: 15,
         startPx: 28
     },
-    key :"ag_best_v1"
+    key :"ag_best_v1",
+    pageKey: "ag_page_v1_"
 };

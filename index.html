@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,7 +14,7 @@
             </div>
             <nav>
                 <div class="tabs" id="nav">
-                    <div class="glider" id="glider"> glider </div>
+                    <div class="glider" id="glider"></div>
                     <button class="tab active" data-mode="h1"> higher/lower </button>
                     <button class="tab" data-mode="px">pixel rush</button></div>
             </nav>
@@ -34,7 +34,7 @@
                 <div class="hud">
                     <div> streak <strong id="streak">0</strong> &nbsp; pts<strong id="pts"> 0 </strong></div>
                     <p id="msg"> loading... </p>
-                    <button id="reset"> reset </button>
+                    <button id="reset" class="btn"> reset </button>
                 </div>
                 <div class="stage">
                     <div id="vs" class="vs"> vs </div>
@@ -46,16 +46,16 @@
                 <div class="hud">
                     <div> Time <strong id="px-time"> 15s </strong> &nbsp; block <strong id="px-grid">28px</strong></div>
                     <p id="px-msg"> guess the pixelated poster </p>
-                    <button id="px-next"> next </button>
+                    <button id="px-next" class="btn"> next </button>
                 </div>
-                    <small id="px-hint"></small>
+                    <p id="px-hint" class="hint"></p>
                 <div class="px-box">
                     <canvas id="px-canvas" width="260" height="360"></canvas>
                     <div id="px-list" class="choices"></div>
                 </div>
             </section>
         </main>
-        <!-- <script src="js/env.js"></script> -->
+        <script src="js/util.js"></script>
         <script src="js/limits.js"></script>
         <script src="js/store.js"></script>
         <script src="js/api.js"></script>

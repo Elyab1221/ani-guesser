@@ -2,6 +2,7 @@
     get(){
         try{
             const raw=localStorage.getItem(limits.key);
+            const cur=raw?JSON.parse(raw):{};
             return raw? JSON.parse(raw):{streak:0,pts:0};
         }catch{
             return {streak:0, pts:0};
