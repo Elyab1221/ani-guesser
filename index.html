@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>ani guesser</title>
+        <link rel="stylesheet" href="css/style.css"/>
+    </head>
+    <body>
+        <header class=""bar>
+            <div class="brand">
+                <span class="logo"> ag </span>
+                <h1>ani guesser</h1>
+            </div>
+            <nav>
+                <div class="tabs" id="nav">
+                    <div class="glider"> glider </div>
+                    <button class="tab-active" data-mode="h1"> higher/lower </button>
+                    <button class="tab" data-mode="px">pixel rush</button>
+            </nav>
+
+            <div class="meta">
+                <select id="pool">
+                    <option value="top"> top 50(1x) </option>
+                    <option value="deep">top 125(1.5x)</option>
+                </select>
+                <div class="best">
+                    best<strong id="best-streak">0</strong> / <strong id="best-pts"> 0 </strong>
+                </div>
+            </div>
+        </header>
+        <main class="wrap">
+            <selection id="panel-h1" class="panel active">
+                <div class="hud">
+                    <div> streak <strong id="streak">0</strong> &nbsp; pts<strong id="pts"> 0 </strong></div>
+                    <p id="msg"> loading... </p>
+                    <button id="reset"> reset </button>
+                </div>
+                <div class="stage">
+                    <div id="vs" class="vs"> vs </div>
+                    <div id="board" class="board"></div>
+                </div>
+            </selection>
+
+            <section id="panel-px" class="panel">
+                <div class="hud">
+                    <div> Time <strong id="timer"> 15s </strong></div>
+                    <p id="px-msg"> guess the pixelated poster </p>
+                    <button id="px-next"> next </button>
+                </div>
+                <div class="px-box">
+                    <canvas id="canvas" width="260" height="360"></canvas>
+                    <div id="choices" class="choices"></div>
+                </div>
+            </section>
+        </main>
+        <script> </script>
+    </body>
+</html>
