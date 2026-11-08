@@ -1,4 +1,4 @@
-const env= window.__ENV__||{};
+const env= window.ENV||{};
 const limits={
     url: env.API_URL || "https://api.jikan.moe/v4",
     wait: env.wait || 1200,
