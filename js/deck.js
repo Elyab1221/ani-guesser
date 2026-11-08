@@ -57,7 +57,7 @@ const deck={
             .join("");
             trayEl.innerHTML=this.unranked()
             .map(item => `
-                <button class="dk-chip ${this.selectId === item.id ? "sel" : ""}" onclick="deck.selectChip(${item.id})">
+                <button class="dk-chip ${this.selectedId === item.id ? "sel" : ""}" onclick="deck.selectChip(${item.id})">
                 <img src="${item.img}" alt="${item.title}"/>
                 <span> ${item.title}</span>
                 </button>`).join("");
