@@ -1,7 +1,7 @@
 const env= window.__ENV__||{};
 const limits={
     url: env.API_URL || "https://api.jikan.moe/v4",
-    wait: 1200,
+    wait: env.wait || 1200,
     perPage:25,
     pools:{
         top:{pages:2,mult:1},
