@@ -3,13 +3,13 @@ const deck={
     tiers: {S:[],A:[],B:[],C:[]},
     selectedId: null,
     async init(){
-        this.pool = await Api.pull(app.diff);
+        this.pool = await api.pull(app.pool);
         if(!this.selectedId && this.pool[0]){
             this.selectedId=this.pool[0].id;
         }
         this.draw();
     },
-    selectdChip(id){
+    selectChip(id){
         this.selectedId=id
         this.draw();
     },
@@ -47,17 +47,17 @@ const deck={
             <div class="dk-tag"> ${t}</div>
             <div class="dk-items">
             ${this.tiers[t].map(item => 
-                <div class="dk-chip" onClick="event.stopPropagation();deck.selectionChip(${item.id})">
+                `<div class="dk-chip" onClick="event.stopPropagation();deck.selectChip(${item.id})">
                     <img src="${item.img}" alt="${item.title}"/>
                     <span>${item.title}</span>
-                </div>
+                </div>`
             ).join("")}
             </div>
             </div>`)
             .join("");
             trayEl.innerHTML=this.unranked()
             .map(item => `
-                <button class="dk-chip ${this.selectedId === item.id ? "sel" : ""}" onclick="deck.selectChip(${item.id})">
+                <button class="dk-chip ${this.selectId === item.id ? "sel" : ""}" onclick="deck.selectChip(${item.id})">
                 <img src="${item.img}" alt="${item.title}"/>
                 <span> ${item.title}</span>
                 </button>`).join("");

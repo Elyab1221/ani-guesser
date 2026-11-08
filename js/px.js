@@ -6,6 +6,8 @@ const px={
 
 async start(){
     clearInterval(this.timer);
+    this.timer=null;
+    document.getElementById("px-msg").textContent="guess the pixelated poster";
     const list=await api.pull(app.pool);
     const picks=[...list].sort(()=> 0.5 -Math.random()).slice(0,4);
     this.ans= picks[Math.floor(Math.random()* picks.length)];
@@ -14,10 +16,9 @@ async start(){
     `hint:${this.ans.year}. ${this.ans.studio}`;
     const box=document.getElementById("px-list");
     box.innerHTML=picks
-    .map(x =>`<button onclick="px.pick(${x.id}, this)"> ${x.title}</button>`)
+    .map(x =>`<button onclick="px.pick(${x.id})"> ${x.title}</button>`)
     .join("");
     this.img=new Image();
-    this.img.crossOrigin ="anonymous";
     this.img.onload= ()=> this.loop();
     this.img.src= this.ans.img;
 },
@@ -34,7 +35,9 @@ loop(){
 
         if (this.left <=0){
             clearInterval(this.timer);
+            this.timer=null;
             this.paint(1);
+            document.getElementById("px-msg").textContent=`time's up - answer was ${this.ans.title}`;
         }
     }, 250);
 },
@@ -53,7 +56,9 @@ paint(size){
     ctx.drawImage(off,0,0,w,h,0,0,c.width,c.height);
 },
 pick(id){
+    if (!this.timer) return;
     clearInterval(this.timer);
+    this.timer=null;
     this.paint(1);
     const ok= id === this.ans.id;
     document.getElementById("px-msg").textContent=ok

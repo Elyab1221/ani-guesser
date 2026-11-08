@@ -79,11 +79,13 @@
     font-size: 0.8rem;
 }
 .stage{position: relative;}
+.rate.ok{color: var(--win);}
+.rate.err{ color: var(--err);}
 .vs{
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, -50%);
     z-index: 5;
     width: 42px ;
     height: 42px ;

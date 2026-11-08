@@ -14,9 +14,10 @@ const hl={
         try{
             [this.left,this.right]=await api.pair(app.pool);
             this.draw(false);
-            this.say("higher to lower ratting on the right?");
+            this.say("higher to lower rating on the right?");
             this.busy=false;
-        }catch{
+        }catch(err){
+            console.error(err);
             this.say("network error.press reset.");
         }
     },
@@ -32,26 +33,31 @@ const hl={
         if(ok){
             const mult=limits.pools[app.pool].mult;
             this.streak+=1;
-            this.pts+=Math.round(limits.hl.pts*mult);
+            this.pts+=Math.round(limits.h1.pts*mult);
             this.hud();
             this.say(`correct (${b} vs ${a})`);
-            setTimeout(() => this.next(),limits.h1.pause);
+            setTimeout(() => this.next(),limits.h1.holdMs);
         }else{
             const rec=store.save(this.streak,this.pts);
             app.syncBest();
-            this.say(`game over -${this.right.title} scored ${b}${rec ? " (new best)": ""}`);
+            this.say(`game over -${this.right.title} scored ${b}${rec.isBest ? " (new best)": ""}`);
         }
     },
     async next(){
-        const list=await api.pull(app.pool);
-        this.left=this.right;
-        let pick=list[Math.floor(Math.random()* list.length)];
-        while (pick.id === this.left.id &&  list.length>1){
-            pick=list[Math.floor(Math.random()* list.length)];
+        try{
+            const list=await api.pull(app.pool);
+            this.left=this.right;
+            let pick=list[Math.floor(Math.random()* list.length)];
+            while (pick.id === this.left.id &&  list.length>1){
+                pick=list[Math.floor(Math.random()* list.length)];
+            }
+            this.right=pick;
+            this.draw(false,null,true);
+            this.busy=false;
+        }catch(err){
+            console.error(err);
+            this.say("network error. press reset.");
         }
-        this.right=pick;
-        this.draw(false,null,true);
-        this.busy=false;
     },
     roll(id,target){
         const el=document.getElementById(id);
@@ -59,7 +65,7 @@ const hl={
         const t0=performance.now();
         const step= now=>{
             const p=Math.min((now-t0)/420,1);
-            el.textContent=(target*(1-mMath.pow(!-p,3))).toFixed(2);
+            el.textContent=(target*(1-Math.pow(1-p,3))).toFixed(2);
             if(p<1) requestAnimationFrame(step);
         };
         requestAnimationFrame(step);
@@ -73,23 +79,23 @@ const hl={
         const box=document.getElementById("board");
         box.innerHTML=`
         <article class="card ${slide ? "slide" : "" }" onmousemove="hl.spot(event,this)">
-        <img src="${this.left.img}" alt="{this.left.title}"/>
-        div class="shade">
+        <img src="${this.left.img}" alt="${this.left.title}"/>
+        <div class="info">
         <small> ${this.left.year} . ${this.left.studio}</small>
         <h3> ${this.left.title}</h3>
-        <div class="score"> ${this.left.score.toFixed(2)}</div>
+        <div class="rate"> ${this.left.score.toFixed(2)}</div>
         </div>
         </article>
         <article class="card ${slide ? "slide" : "" }" onmousemove="hl.spot(event,this)">
         <img src="${this.right.img}" alt="${this.right.title}"/>
-        <div class="shade">
+        <div class="info">
         <small> ${this.right.year} . ${this.right.studio}</small>
         <h3> ${this.right.title}</h3>
         ${show
-            ? `<div class="score ${ok ? "ok" : "err"}" id="r-val"> 0.00</div>`
+            ? `<div class="rate ${ok ? "ok" : "err"}" id="r-val"> 0.00</div>`
             : `<div class="btns">
-                <button onclick="hl.guess('up')"> higher </button>
-                <button onclick="hl.guess('down')"> lower </button>
+                <button onclick="hl.guess('up')" class="btn"> higher </button>
+                <button onclick="hl.guess('down')" class="btn"> lower </button>
                 </div>`
         }
         </div>

@@ -10,7 +10,7 @@ const clues = {
     this.over = false;
     this.step = 1;
     this.stake = limits.clues.startPts;
-    this.pool = await api.pull(app.diff);
+    this.pool = await api.pull(app.pool);
     this.target = this.pool[Math.floor(Math.random() * this.pool.length)];
     this.draw();
     this.drawChoices();
@@ -66,7 +66,7 @@ const clues = {
     if (id === this.target.id) {
       this.total += this.stake;
       store.save(0, this.total);
-      app.syncTop();
+      app.syncBest();
       document.getElementById("cl-total").textContent = this.total;
       document.getElementById("cl-msg").textContent = `correct +${this.stake} pts — ${this.target.title}`;
     } else {

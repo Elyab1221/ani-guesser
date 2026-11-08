@@ -12,9 +12,10 @@ const limits={
         rollMd: 480,
         holdMs:950
     },
+    clues:{startPts:400,stepCost:100},
     px:{
-        sec: 15,
-        block: 28
+        time: 15,
+        startPx: 28
     },
     key :"ag_best_v1"
 };

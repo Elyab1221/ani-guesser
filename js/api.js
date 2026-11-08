@@ -24,7 +24,9 @@ async pull(tier="top"){
         score:Number(x.score.toFixed(2)),
         year:x.year|| x.aired?.prop?.from?.year || "-",
         studio: x.studios?.[0]?.name||"unknown",
-        img:x.images.jpg.large_image_url
+        img:x.images.jpg.large_image_url,
+        episodes:x.episodes || "?",
+        genres: (x.genres || []).map(g=>g.name).join(", "),
     }));
     this.cache[pg]=list;
     return list;

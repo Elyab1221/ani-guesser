@@ -8,20 +8,20 @@ const app={
     },
     bind(){
         const glider=document.getElementById("glider");
-        docments.querySelectorAll(".tab").forEach(btn => {
+        document.querySelectorAll(".tab").forEach(btn => {
         btn.addEventListener("click", ()=> {
-            document.querySelectorAll(" .tab").forEach(b=>b.classList.remove("on"));
-            btn.classList.add("on");
-            glider.style.width= `${offsetWidth}px`;
+            document.querySelectorAll(" .tab").forEach(b=>b.classList.remove("active"));
+            btn.classList.add("active");
+            glider.style.width= `${btn.offsetWidth}px`;
             glider.style.transform= `translateX(${btn.offsetLeft-3}px)`;
             const m=btn.dataset.mode;
-            document.querySelectorAll(".view").forEach(v =>{
-                v.classList.toggle("on",v.id === `view-${m}`);
+            document.querySelectorAll(".panel").forEach(v =>{
+                v.classList.toggle("active",v.id === `panel-${m}`);
             });
             if (m=== "px" && !px.ans) px.start();
         });      
         });
-        document.getElementById("pool").addEventListener("charge", e=>{
+        document.getElementById("pool").addEventListener("change", e=>{
             this.pool=e.target.value;
             hl.start();
         });
@@ -29,6 +29,7 @@ const app={
         document.getElementById("px-next").addEventListener("click",() => px.start());
 
         window.addEventListener("keydown", e=> {
+            if(!document.getElementById("panel-h1").classList.contains("active")) return;
             if (e.key === "ArrowUp" || e.key === "w") hl.guess("up");
             if (e.key === "ArrowDown" || e.key ==="s") hl.guess("down");
         });
