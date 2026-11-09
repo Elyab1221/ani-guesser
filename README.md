@@ -2,8 +2,7 @@
 
 **A fast anime guessing game for the browser. Compare ratings, decode pixelated posters and solve mystery clues, all with real data from public anime APIs.**
 
-![ani guesser running in higher/lower mode](screenshots/higher-lower.png)
-
+![ani guesser running in higher/lower mode](https://raw.githubusercontent.com/elyab1221/ani-guesser/main/screenshots/higher-lower.png)
 *Higher/lower mode: two anime, one hidden rating, and a streak to protect. The ratings are revealed after every answer.*
 
 ## About the project
