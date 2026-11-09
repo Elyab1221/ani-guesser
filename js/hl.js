@@ -41,6 +41,8 @@ const hl={
             this.streak+=1;
             this.pts+=Math.round(limits.h1.pts*mult);
             this.hud();
+            store.save(this.streak,this.pts);
+            app.syncBest();
             this.say(`correct (${b.toFixed(2)} vs ${a.toFixed(2)})`);
             setTimeout(() =>{ 
                 if(run===this.run) this.next();
@@ -49,6 +51,8 @@ const hl={
             const rec=store.save(this.streak,this.pts);
             app.syncBest();
             this.say(`game over -${this.right.title} scored ${b.toFixed(2)}${rec.isBest ? " (new best)": ""}.press reset.`);
+            document.querySelector("#board.card:last-Children.info").insertAdjacentHTML("beforeend",
+            `<button class="btn" onclick="h1.start()">play again<button>`);
         }
     },
     async next(){
@@ -94,7 +98,7 @@ const hl={
         <div class="info">
         <small> ${esc(this.left.year)} . ${esc(this.left.studio)}</small>
         <h3> ${esc(this.left.title)}</h3>
-        <div class="rate"> ${this.left.score.toFixed(2)}</div>
+        ${show? `<div class="rate"> ${this.left.score.toFixed(2)}</div>`: ""}
         </div>
         </article>
         <article class="card ${slide ? "slide" : "" }" onmousemove="hl.spot(event,this)">

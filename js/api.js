@@ -60,7 +60,7 @@ async request(url,options={}){
                     seasonYear
                     startDate{year}
                     studios(isMain:true){nodes{name}}
-                    coverImage{large}
+                    coverImage{extraLarge large}
                     episodes
                     genres
                 }

@@ -56,7 +56,7 @@ const clues = {
     opts.sort(() => Math.random() - 0.5);
 
     box.innerHTML = opts
-      .map(o => `<button class="px-item" onclick="clues.guess(${o.id})">${o.title}</button>`)
+      .map(o => `<button class="btn" onclick="clues.guess(${o.id})">${esc(o.title)}</button>`)
       .join("");
   },
   guess(id) {

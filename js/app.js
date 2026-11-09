@@ -14,6 +14,8 @@ const app={
     },
     bind(){
         const glider=document.getElementById("glider");
+        document.getElementById("cl-unlock").addEventListener("click",()=>clues.unlock());
+        document.getElementById("cl-next").addEventListener("click",()=>clues.start());
         document.querySelectorAll(".tab").forEach(btn => {
         btn.addEventListener("click", ()=> {
             document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
@@ -23,11 +25,14 @@ const app={
            document.querySelectorAll(".panel").forEach(p=>{
             p.classList.toggle("active", p.id===`panel-${m}`);
            });
-           if (m==="px"){
-            if(!px.ans) px.start();
-           }else{
-            px.stop();
-           }
+           px.stop();
+           if(m==="px") px.start();
+           if(m==="cl" && !clues.target) clues.start();
+        //    if (m==="px"){
+        //     if(!px.ans) px.start();
+        //    }else{
+        //     px.stop();
+        //    }
         });      
         });
         window.addEventListener("resize",()=>{

@@ -4,6 +4,7 @@ const px={
     left: 15,
     img: null,
     round:0,
+    total:0,
 
     say(text){
         document.getElementById("px-msg").textContent=text;
@@ -94,8 +95,13 @@ finish(chosen){
 pick(id){
     if (!this.timer) return;
     this.finish(id);
-    this.say(id===this.ans.id
-        ?`correct - ${this.ans.title}`
-        :` wrong - answer was ${this.ans.title}`)
-}
-};
+    if (id===this.ans.id){
+        const gained=Math.round(this.left*10);
+        this.total+=gained;
+        store.save(0,this.total);
+        app.syncBest();
+        this.say(`correct +${gained} pts - ${this.ans.title} (total ${this.total})`);
+    }else{
+        this.say(`wrong - answer was ${this.ans.title}`);
+    }
+}}

@@ -16,7 +16,10 @@
                 <div class="tabs" id="nav">
                     <div class="glider" id="glider"></div>
                     <button class="tab active" data-mode="h1"> higher/lower </button>
-                    <button class="tab" data-mode="px">pixel rush</button></div>
+                    <button class="tab" data-mode="px">pixel rush</button>
+                    <button class="tab" data-mode="cl">clues</button>
+                </div>
+
             </nav>
 
             <div class="meta">
@@ -54,6 +57,16 @@
                     <div id="px-list" class="choices"></div>
                 </div>
             </section>
+            <section id="panel-cl" class="panel">
+                <div class="hud">
+                    <div> worth<strong id="cl-pts"> 400</strong> &nbsp; total <strong id="cl-total">0</strong></div>
+                    <P id="cl-msg"> loading....</P>
+                    <button id="cl-unlock" class="btn"> unlock clue</button>
+                    <button id="cl-next" class="btn"> next </button>
+                </div>
+                <div id="cl-grid" class="cl-grid"></div>
+                <div id="cl-choices" class="choices"></div>
+            </section>
         </main>
         <script src="js/util.js"></script>
         <script src="js/limits.js"></script>
@@ -61,6 +74,7 @@
         <script src="js/api.js"></script>
         <script src="js/hl.js"></script>
         <script src="js/px.js"></script>
+        <script src="js/clues.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>
