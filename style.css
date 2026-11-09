@@ -18,6 +18,13 @@
     font-family: Arial, Helvetica, sans-serif;
     min-height: 100vh;
  }
+ button, select{
+    font-family: monospace;
+ }
+ :focus-visible{
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+ }
  .bar{
     display: flex;
     justify-content: space-between;
@@ -26,6 +33,36 @@
     background: var(--box);
     border-bottom:  1px solid  var(--line);
  }
+ .brand{
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+ }
+ .brand h1{font-size: 1.1rem;}
+ .logo{
+    background: var(--fg);
+    color: var(--bg);
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding:  0.25rem 0.5rem;
+ }
+ .meta{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
+    color: var(--dim);
+ }
+ .meta select{
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+ }
+ .best strong{color: var(--fg);}
 .tabs{
     position: relative;
     display: flex;
@@ -78,6 +115,11 @@
     font-family: monospace;
     font-size: 0.8rem;
 }
+.hud p{
+    flex: 1;
+    text-align: center;
+    color: var(--dim);
+}
 .stage{position: relative;}
 .rate.ok{color: var(--win);}
 .rate.err{ color: var(--err);}
@@ -96,6 +138,7 @@
     justify-content: center;
     font-family: monospace;
     font-size: 0.75rem;
+    pointer-events: none;
 }
 .board{
     display: grid;
@@ -112,7 +155,7 @@
     flex-direction: column ;
     justify-content: flex-end;
     --mx: 50%;
-    --my: 50%
+    --my: 50%;
 }
 .card::before{
     content: "";
@@ -140,6 +183,13 @@
     padding: 1.5rem;
     background: linear-gradient(to top, rgba(10,10,12,0.96) 20%,rgba(10,10,12,0.45) 75%, transparent);
 }
+.info small{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.info h3{
+    margin:0.3rem 0 0.5rem;
+    font-size: 1.1rem;
+}
 .rate{
     font-family: monospace;
     font-size: 2.2rem;
@@ -160,9 +210,40 @@
     border: 1px solid var(--line);
     cursor: pointer;
 }
-.btn:hover{
+.btn:not(:disabled):hover{
     background: var(--fg);
     color: var(--bg);
+}
+.btn:disabled{cursor: default;}
+.btn.ok{
+    border-color: var(--win) ;
+    color: var(--win);
+}
+.btn.err{
+    border-color: var(--err);
+    color: var(--err);
+}
+.px-box{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+#px-canvas{
+    max-width: 100%;
+    background: var(--box);
+    border:  1px solid var(--line);
+}
+.choices{
+    flex: 1;
+    min-width: 240px;
+    display: grid;
+    gap: 0.6rem;
+}
+.choices .btn{
+    padding: 0.9rem;
+    text-align: left;
+    font-size: 0.85rem;
 }
 @keyframes slideIn {
     from{
@@ -176,3 +257,14 @@
 }
 .slide{
     animation: slideIn 0.4s cubic-bezier(0.21,1,0.36,1);}
+
+@media (max-width: 720px) {
+    .bar{flex-wrap: wrap;}
+    .board{grid-template-columns: 1fr;}
+    .card{height: 340px;}
+    .hud{flex-wrap: wrap;}
+}
+@media (prefers-reduced-motion: reduced){
+    .slide{animation:none;}
+    .glider, .card img{transition: none;}
+}
