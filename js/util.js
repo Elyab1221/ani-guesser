@@ -1,4 +1,4 @@
-const esc=s=>String(S).replace(/[&<>""]/g,c=>({
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({
     "&":"&amp;",
     "<":"&lt;",
     ">": "&gt;",

@@ -21,7 +21,7 @@ const app={
            this.moveGlider(btn);
            const m=btn.dataset.mode;
            document.querySelectorAll(".panel").forEach(p=>{
-            p.classList.toggle("active", p.id===`panel - ${m}`);
+            p.classList.toggle("active", p.id===`panel-${m}`);
            });
            if (m==="px"){
             if(!px.ans) px.start();

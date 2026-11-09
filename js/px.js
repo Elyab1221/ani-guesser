@@ -30,7 +30,7 @@ async start(){
         this.ans=picks[Math.floor(Math.random()*picks.length)];
         document.getElementById("px-hint").textContent=`hint: ${this.ans.year} . ${this.ans.studio}`;
         document.getElementById("px-list").innerHTML=picks
-        ,map(x=>`<button class="btn" data-id=${x.id}" onclick="px.pick(${x.id})">${esc(x.title)}</button>`)
+        .map(x=>`<button class="btn" data-id=${x.id}" onclick="px.pick(${x.id})">${esc(x.title)}</button>`)
         .join("");
         this.img=new Image();
         this.img.onload= ()=>{
@@ -50,7 +50,7 @@ async start(){
 loop(){
     this.left=limits.px.time;
     this.paint(limits.px.startPx);
-    this.say("guess the pixlated poster");
+    this.say("guess the pixelated poster");
     this.timer= setInterval(()=>{
         this.left=Math.max(0, +(this.left-0.25).toFixed(2));
         const ratio=this.left/limits.px.time;

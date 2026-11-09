@@ -23,7 +23,7 @@ const hl={
         }catch(err){
             if(run!==this.run) return;
             console.error(err);
-            this.say("network error.(${err.message})");
+            this.say(`network error.(${err.message})`);
         }
     },
     guess(dir){
@@ -61,13 +61,13 @@ const hl={
             while (pick.title===this.right.title && list.length>1){
                 pick=list[Math.floor(Math.random()*list.length)];
             }
-            this.left=this.right;
+            this.left=pick;
             this.draw(false,null,true);
             this.busy=false;
         }catch(err){
             if(run!==this.run) return;
             console.error(err);
-            this.say("network error. (${err.message})");
+            this.say(`network error. (${err.message})`);
         }
     },
     roll(id,target){
@@ -92,15 +92,15 @@ const hl={
         <article class="card ${slide ? "slide" : "" }" onmousemove="hl.spot(event,this)">
         <img src="${esc(this.left.img)}" alt="${esc(this.left.title)}"/>
         <div class="info">
-        <small> ${this.left.year} . ${this.left.studio}</small>
-        <h3> ${this.left.title}</h3>
+        <small> ${esc(this.left.year)} . ${esc(this.left.studio)}</small>
+        <h3> ${esc(this.left.title)}</h3>
         <div class="rate"> ${this.left.score.toFixed(2)}</div>
         </div>
         </article>
         <article class="card ${slide ? "slide" : "" }" onmousemove="hl.spot(event,this)">
-        <img src="${this.right.img}" alt="${this.right.title}"/>
+        <img src="${esc(this.right.img)}" alt="${esc(this.right.title)}"/>
         <div class="info">
-        <small> ${this.right.year} . ${this.right.studio}</small>
+        <small> ${esc(this.right.year)} . ${esc(this.right.studio)}</small>
         <h3> ${esc(this.right.title)}</h3>
         ${show
             ? `<div class="rate ${ok ? "ok" : "err"}" id="r-val"> 0.00</div>`

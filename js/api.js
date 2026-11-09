@@ -2,7 +2,7 @@ const api={
     last:0 ,
     cache:{},
     skipJikanUntil:0,
-    JikanError: "",
+    jikanError: "",
 
     async throttle(){
         const gap=Date.now()-this.last;
