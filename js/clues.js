@@ -7,6 +7,11 @@ const clues = {
   over: false,
 
   async start() {
+    try{this.pool=await api.pull(app.pool);}
+    catch(err){
+        document.getElementById("cl-msg".textContent=`network error (${err.message}). press next`);
+        return ;
+    }
     this.over = false;
     this.step = 1;
     this.stake = limits.clues.startPts;
@@ -60,7 +65,7 @@ const clues = {
       .join("");
   },
   guess(id) {
-    if (this.over) return;
+    if (this.over || this.target) return;
     this.over = true;
     this.draw();
     if (id === this.target.id) {

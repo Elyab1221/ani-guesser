@@ -25,7 +25,7 @@ const app={
            document.querySelectorAll(".panel").forEach(p=>{
             p.classList.toggle("active", p.id===`panel-${m}`);
            });
-           px.stop();
+           if(!btn.classList.contains("active")){px.stop();}
            if(m==="px") px.start();
            if(m==="cl" && !clues.target) clues.start();
         //    if (m==="px"){

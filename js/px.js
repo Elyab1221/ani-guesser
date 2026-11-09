@@ -31,7 +31,7 @@ async start(){
         this.ans=picks[Math.floor(Math.random()*picks.length)];
         document.getElementById("px-hint").textContent=`hint: ${this.ans.year} . ${this.ans.studio}`;
         document.getElementById("px-list").innerHTML=picks
-        .map(x=>`<button class="btn" data-id=${x.id}" onclick="px.pick(${x.id})">${esc(x.title)}</button>`)
+        .map(x=>`<button class="btn" data-id="${x.id}" onclick="px.pick(${x.id})">${esc(x.title)}</button>`)
         .join("");
         this.img=new Image();
         this.img.onload= ()=>{

@@ -283,7 +283,7 @@
     .card{height: 340px;}
     .hud{flex-wrap: wrap;}
 }
-@media (prefers-reduced-motion: reduced){
+@media (prefers-reduced-motion: reduce){
     .slide{animation:none;}
     .glider, .card img{transition: none;}
 }
