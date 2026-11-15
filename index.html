@@ -59,12 +59,15 @@
                 <!-- <div> time<strong id="px-time"> 15s</strong> &nbsp; <span class="block-info">block<strong id=""px-grid>28px</strong></span> streak <strong id="px-streak">0</strong> &nbsp; pts<strong id="px-pts">0</strong></div> -->
                 <div class="hud">
                     <div> time <strong id="px-time">15s</strong> &nbsp; <span class="block-info">block <strong id="px-grid">28px</strong> &nbsp;</span> streak <strong id="px-streak">0</strong> &nbsp; pts <strong id="px-pts">0</strong></div>                    <p id="px-msg"> guess the pixelated poster </p>
-                    <button id="px-next" class="btn"> next </button>
+                    <!-- <button id="px-next" class="btn"> next </button> -->
                 </div>
                     <p id="px-hint" class="hint"></p>
                 <div class="px-box">
                     <canvas id="px-canvas" width="260" height="360"></canvas>
                     <div id="px-list" class="choices"></div>
+                </div>
+                <div class="next-row">
+                    <button id="px-next" class="btn"> next </button>
                 </div>
             </section>
             <section id="panel-cl" class="panel">
@@ -72,20 +75,28 @@
                     <div> worth <strong id="cl-pts"> 400</strong> &nbsp; total <strong id="cl-total">0</strong></div>
                     <P id="cl-msg"> loading....</P>
                     <button id="cl-unlock" class="btn"> unlock clue</button>
-                    <button id="cl-next" class="btn"> next </button>
+                    <!-- <button id="cl-next" class="btn"> next </button> -->
                 </div>
                 <div id="cl-grid" class="cl-grid"></div>
                 <div id="cl-choices" class="choices"></div>
+                <div class="next-row">
+                    <button id="cl-next" class="btn"> next </button>
+                </div>
             </section>
             <section id="panel-dy" class="panel">
                 <div class="hud">
-                    <div> round <strong id="dy-round"> 1/5</strong> &nbsp; score<strong id="dy-score">0</strong></div>
-                    <p id="dy-msg"> loading....</p>
-                    <button id="dy-next" class="btn">next</button>
-                    <button id="dy-share" class="btn" style="display: none;" onclick="daily.share()">share</button>
+                    <div> round <strong id="dy-round">1/5</strong> &nbsp; score <strong id="dy-score">0</strong> &nbsp; streak <strong id="dy-streak">0</strong> &nbsp; best <strong id="dy-best">0</strong></div>
+                    <p id="dy-msg"> loading.... </p>
                 </div>
                 <div id="dy-grid" class="cl-grid"></div>
-                <div id="dy-choices" class="choices"></div>
+                <div class="px-box">
+                    <canvas id="dy-canvas" width="260" height="360" style="display:none"></canvas>
+                    <div id="dy-choices" class="choices"></div>
+                </div>
+                <div class="next-row">
+                    <button id="dy-share" class="btn" style="display:none" onclick="daily.share()">share</button>
+                    <button id="dy-next" class="btn">next</button>
+                </div>
             </section>
         </main>
         <div id="stats-back" class="stats-back" onclick="if(event.target===this)stats.close()">

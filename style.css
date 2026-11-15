@@ -463,5 +463,11 @@ body.fx-ok .hud{animation: fx-pulse .45s;}
     padding: 6px 8px;
     border-bottom: 1px solid #2a2a2e;
     font-size: 15px;
-
 }
+.next-row{display:flex;justify-content:flex-end;gap:0.6rem;margin-top:1rem}
+.next-row .btn{padding:0.9rem 2.2rem;font-size:0.95rem}
+#panel-px .next-row{position:relative;top:-4rem}
+#dy-canvas{width:260px;max-width:42vw;height:auto;flex-shrink:0;background:var(--box);border:1px solid var(--line)}
+.stats-box h2{margin:0 0 1rem}
+.stats-box p{margin:0 0 0.8rem;line-height:1.6; font-size: 1.2rem;}
+.stats-box .btn{margin-top:0.6rem}
