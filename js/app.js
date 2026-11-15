@@ -49,12 +49,17 @@ const app={
             this.moveGlider(document.querySelector(".tab.active"));
         });
         document.getElementById("pool").addEventListener("change",e=>{
-            this.pool=e.target.value;
-            e.target.blur();
-            hl.start();
             px.stop();
             px.newRun();
+            this.pool=e.target.value;
+            clues.total=0;
+            clues.target=null;
+            document.getElementById("cl-total").textContent=0;
+            e.target.blur();
+            this.syncBest();
+            h1.start();
             if (document.getElementById("panel-px").classList.contains("active")) px.start();
+            if (document.getElementById("panel-cl").classList.contains("active")) clues.start();
         });
         document.getElementById("reset").addEventListener("click",()=>hl.start());
         document.getElementById("px-next").addEventListener("click",()=>px.start());
