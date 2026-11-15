@@ -475,3 +475,8 @@ body.fx-ok .hud{animation: fx-pulse .45s;}
     #panel-px .next-row{top:0}
     .next-row .btn{padding:0.7rem 1.5rem;font-size:0.85rem}
 }
+.hist{display:flex;gap:6px;margin:0 0 1rem;flex-wrap:wrap}
+.hist-cell{width:18px;height:18px;background:var(--line);border:1px solid var(--line)}
+.hist-cell.low{background:var(--win);opacity:.35}
+.hist-cell.good{background:var(--win);opacity:.7}
+.hist-cell.perfect{background:var(--win)}

@@ -9,6 +9,7 @@ const daily={
     day:"",
     img:null,
     streakKey:"ag_daily_streak_v1",
+    histKey:"ag_daily_hist_v1",
 
     key(offset=0){
         const d=new Date(Date.now()+offset*86400000);
@@ -41,6 +42,7 @@ const daily={
         return (s.last===this.today()||s.last===this.key(-1))?s.streak:0;
     },
     finishStreak(){
+         this.saveHistory();
         const s=this.streakData();
         if(s.last===this.today()) return;
         s.streak=(s.last===this.key(-1))?s.streak+1:1;
@@ -55,6 +57,44 @@ const daily={
         const b=document.getElementById("dy-best");
         if(a) a.textContent=this.currentStreak();
         if(b) b.textContent=this.streakData().best;
+        this.drawHistory();
+    },
+        history(){
+        try{
+            const h=JSON.parse(localStorage.getItem(this.histKey));
+            if(h && typeof h==="object") return h;
+        }catch{}
+        return {};
+    },
+    saveHistory(){
+        const h=this.history();
+        h[this.today()]=this.score;
+        const keep={};
+        for(let i=0;i<60;i++){
+            const k=this.key(-i);
+            if(h[k]!==undefined) keep[k]=h[k];
+        }
+        try{
+            localStorage.setItem(this.histKey,JSON.stringify(keep));
+        }catch{}
+    },
+    drawHistory(){
+        const box=document.getElementById("dy-history");
+        if(!box) return;
+        const h=this.history();
+        let html="";
+        for(let i=13;i>=0;i--){
+            const k=this.key(-i);
+            const s=h[k];
+            let cls="hist-cell";
+            let tip=k;
+            if(s!==undefined){
+                cls+=s>=500?" perfect":(s>=300?" good":" low");
+                tip+=`: ${s}/500`;
+            }
+            html+=`<div class="${cls}" title="${tip}"></div>`;
+        }
+        box.innerHTML=html;
     },
     say(text){
         document.getElementById("dy-msg").textContent=text;

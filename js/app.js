@@ -77,6 +77,37 @@ const app={
                 hl.guess("down");
             }
         });
+                window.addEventListener("keydown",e=>{
+            if(e.ctrlKey || e.metaKey || e.altKey) return;
+            if(["SELECT","INPUT","TEXTAREA"].includes(e.target.tagName)) return;
+            if(e.key==="Escape"){
+                document.querySelectorAll(".stats-back.open").forEach(x=>x.classList.remove("open"));
+                return;
+            }
+            if(document.querySelector(".stats-back.open")) return;
+            const panel=document.querySelector(".panel.active");
+            if(!panel) return;
+            const map={
+                "panel-px":{list:"#px-list button",next:"px-next"},
+                "panel-cl":{list:"#cl-choices button",next:"cl-next"},
+                "panel-dy":{list:"#dy-choices button",next:"dy-next"}
+            }[panel.id];
+            if(!map) return;
+            if(e.key>="1" && e.key<="4"){
+                const btn=document.querySelectorAll(map.list)[Number(e.key)-1];
+                if(btn && !btn.disabled){
+                    e.preventDefault();
+                    btn.click();
+                }
+            }else if(e.key==="u" && panel.id==="panel-cl"){
+                document.getElementById("cl-unlock").click();
+            }else if(e.key==="Enter"){
+                if(panel.id==="panel-px" && px.timer) return;
+                e.preventDefault();
+                if(document.activeElement) document.activeElement.blur();
+                document.getElementById(map.next).click();
+            }
+        });
     },
     syncBest(){
         const s=store.get();

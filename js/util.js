@@ -46,7 +46,7 @@ const shareText=async text=>{
         await navigator.clipboard.writeText(text);
         return "copied";
     }catch(err){
-        alert((err&&err.name)+": "+(err&&err.message));
+        // alert((err&&err.name)+": "+(err&&err.message));
         if(err && err.name==="AbortError") return "share";
         window.prompt("copy this: ",text);
         return "share";
