@@ -4,6 +4,7 @@ const daily={
     idx:0,
     score:0,
     answered:false,
+    marks:"",
     loading:false,
 
     today(){
@@ -13,14 +14,13 @@ const daily={
     load(){
         try{
             const s=JSON.parse(localStorage.getItem("ag_daily_v1_"+this.today()));
-            if(s) return {done:Number(s.done)||0,score:Number(s.score)||0};
+            if(s) return {done:Number(s.done)||0,score:Number(s.score)||0,marks:String(s.marks||"")};
         }catch{}
-        return {done:0,score:0};
+        return {done:0,score:0,marks:""};
     },
     save(done){
         try{
-            localStorage.setItem("ag_daily_v1_"+this.today(),JSON.stringify({done,score:this.score}));
-        }catch{}
+            localStorage.setItem("ag_daily_v1_"+this.today(),JSON.stringify({done,score:this.score,marks:this.marks}));        }catch{}
     },
     say(text){
         document.getElementById("dy-msg").textContent=text;
@@ -71,6 +71,7 @@ const daily={
             const s=this.load();
             this.idx=Math.min(s.done,this.rounds);
             this.score=s.score;
+            this.marks=s.marks;
         }
         this.show();
     },
@@ -102,6 +103,7 @@ const daily={
         this.answered=true;
         const t=this.list[this.idx].target;
         const ok=id===t.id;
+        this.marks+=ok?"🟩":"🟥";
         if(ok){
             this.score+=100;
             buzz(40);
@@ -121,6 +123,7 @@ const daily={
             this.idx=this.rounds;
             store.save(0,this.score,"dy");
             app.syncBest();
+            document.getElementById("dy-share").style.display="";
             this.say(`${result}. daily finished: ${this.score}/${this.rounds*100}. come back tomorrow!`);
         }else{
             this.say(`${result}. press next.`);
@@ -134,8 +137,16 @@ const daily={
     finished(){
         document.getElementById("dy-round").textContent=`${this.rounds}/${this.rounds}`;
         document.getElementById("dy-score").textContent=this.score;
+        document.getElementById("dy-share").style.display=""
         document.getElementById("dy-grid").innerHTML="";
         document.getElementById("dy-choices").innerHTML="";
         this.say(`you already played today: ${this.score}/${this.rounds*100}. come back tomorrow!`);
+    },
+    async share(){
+        const text=`ani guesser daily ${this.today()}\n${this.marks} ${this.score}/${this.rounds*100}`;
+        const btn=document.getElementById("dy-share");
+        const res=await shareText(text);
+        btn.textContent=res;
+        setTimeout(()=>{btn.textContent="share";},1500);
     }
 };

@@ -38,3 +38,18 @@ const seeded=seed=>{
         return ((t^(t>>>14))>>>0)/4294967296;
     };
 };
+const shareText=async text=>{
+    try{
+        if(navigator.share){
+            await navigator.share({text});
+            return "shared";
+        }
+        await navigator.clipboard.writeText(text);
+        return "copied";
+    }catch(err){
+        alert((err&&err.name)+": "+(err&&err.message));
+        if(err && err.name==="AbortError") return "share";
+        window.prompt("copy this: ",text);
+        return "share";
+    }
+};
