@@ -3,6 +3,8 @@ const api={
     cache:{},
     skipJikanUntil:0,
     jikanError: "",
+    seen:{},
+    growPauseUntil:0,
 
     async throttle(){
         const gap=Date.now()-this.last;
@@ -128,41 +130,100 @@ async request(url,options={}){
         }
     },
 
-async pull(tier="top"){
-        const cfg=limits.pools[tier]||limits.pools.top;
-        const pg=Math.floor(Math.random()*cfg.pages)+1;
-        if(this.cache[pg]?.length) return this.cache[pg];
-
-        const saved=this.load(pg);
-        if(saved && Date.now()-saved.t<limits.cacheMs){
-            this.cache[pg]=saved.list;
-            return saved.list;
-        }
-
-        let list;
-        try{
-            list=await this.fromAnySource(pg);
-        }catch(err){
-            const fallback=saved?saved.list:this.anyPage(cfg.pages);
-            if(fallback){
-                this.cache[pg]=fallback;
-                return fallback;
-            }
-            throw err;
-        }
-        this.cache[pg]=list;
-        this.save(pg,list);
-        return list;
-    },
-
-    async pair(tier="top"){
-        const list=await this.pull(tier);
-        if(list.length<2) throw new Error("not enough anime");
-        const a=Math.floor(Math.random()*list.length);
-        let b=Math.floor(Math.random()*list.length);
-        while(b===a){
-            b=Math.floor(Math.random()*list.length);
-        }
-        return [list[a],list[b]];
+async loadPage(pg){
+    if(this.cache[pg]?.length) return this.cache[pg];
+    const saved=this.load(pg);
+    if(saved && Date.now()-saved.t<limits.cacheMs){
+        this.cache[pg]=saved.list;
+        return saved.list;
     }
+    let list;
+    try{
+        list=await this.fromAnySource(pg);
+    }catch(err){
+        const fallback=saved?saved.list:this.anyPage(this.maxPages());
+        if(fallback){
+            this.cache[pg]=fallback;
+            return fallback;
+        }
+        throw err;   
+    }
+    this.cache[pg]=list;
+    this.save(pg,list);
+    return list;
+},
+maxPages(){
+    return Math.max(...Object.values(limits.pools).map(p=>p.pages));
+},
+async pull(level="easy"){
+    const cfg=limits.pools[level]||limits.pools.easy;
+    const pg=Math.floor(Math.random()*cfg.pages+1);
+    return this.loadPage(pg)
+},
+seenSet(level){
+    if(!this.seen[level]) this.seen[level]=new Set();
+    return this.seen[level];
+},
+loaded(level){
+    const cfg=limits.pools[level]||limits.pools.easy;
+    const byId=new Map();
+    for(let pg=1;pg<=cfg.pages;pg++){
+        (this.cache[pg]||[]).forEach(x=>byId.set(x.id,x));
+    }
+    return [...byId.values()];
+},
+async grow(level){
+    const cfg=limits.pools[level]||limits.pools.easy;
+    const missing=[];
+    for(let pg=1;pg<=cfg.pages;pg++){
+        if(!this.cache[pg]) missing.push(pg);
+    }
+    if(!missing.length) return;
+    if(Date.now()<this.growPauseUntil && this.loaded(level).length) return;
+    const pg=missing[Math.floor(Math.random()*missing.length)];
+    try{
+        await this.loadPage(pg);
+    }catch(err){
+        if(!this.loaded(level).length) throw err;
+        console.warn("could not load another page: ", err);
+        this.growPauseUntil=Date.now()+limits.skipMs;
+    }
+},
+choose(level,near=null,avoid=null){
+    const cfg=limits.pools[level]||limits.pools.easy;
+    const seen=this.seenSet(level);
+    const all=this.loaded(level).filter(x=>x.id!==avoid);
+    if(!all.length) throw new Error("not enough anime");
+    let fresh=all.filter(x=>!seem.has(x.id));
+    if(!fresh.length){
+        seen.clear();
+        fresh=all;
+    }
+    let list=fresh;
+    if(near!==null){
+        const close=fresh.filter(x=>Math.abs(x.score-near)<=cfg.maxGap);
+        list=close.length?close:[...fresh].sort((p,q)=>Math.abs(p.score-near)-Math.abs(q.score-near)).slice(0,3);
+    }
+    const pick=list[Math.floor(Math.random()*list.length)];
+    seen.add(pick.id);
+    return pick;
+},
+async pick(level="easy",near=null,avaoid=null){
+    await this.grow(level);
+    const a=this.choose(level);
+    const b=this.choose(level,a.score,a.id);
+    return [a,b];
+},
+async choices(level="easy",count=4){
+    await this.grow(level);
+    const answer=this.choose(level);
+    const others=this.loaded(level).filter(x=>x.id!==answer.id);
+    const options=[answer];
+    while (options.length<count && others.length){
+        const i=Math.floor(Math.random()*others.length);
+        options.push(others.splice(i,1)[0]);
+    }
+    options.sort(()=>0.-Math.random());
+    return {answer,options};
+}
 };

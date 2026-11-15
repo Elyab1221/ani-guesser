@@ -36,19 +36,14 @@ const hl={
         this.roll("r-val",b);
 
         if(ok){
-            const run=this.run;
             const mult=limits.pools[app.pool].mult;
             this.streak+=1;
             this.pts+=Math.round(limits.h1.pts*mult);
             this.hud();
-            store.save(this.streak,this.pts);
-            app.syncBest();
             this.say(`correct (${b.toFixed(2)} vs ${a.toFixed(2)})`);
-            setTimeout(()=>{
-                if(run===this.run) this.next();
-            },limits.h1.holdMs);
+            this.next();
         }else{
-            store.save(this.streak,this.pts);
+            const rec=store.save(this.streak,this.pts,"h1");
             app.syncBest();
             this.say(`game over - ${this.right.title} scored ${b.toFixed(2)}. press play again.`);
             document.querySelector("#board .card:last-child .info").insertAdjacentHTML("beforeend",
@@ -56,20 +51,17 @@ const hl={
         }
     },
     async next(){
-        const run=this.run;
-        this.say("loading next...");
+        const run=this.run;//this.say("loading next...");
         try{
-            const list=await api.pull(app.pool);
-            if(run!==this.run) return;
-            let pick=list[Math.floor(Math.random()*list.length)];
-            for(let i=0;i<20 && (pick.title===this.right.title || pick.score===this.right.score);i++){
-                pick=list[Math.floor(Math.random()*list.length)];
-            }
+            const [pick]=await Promise.all([
+                api.pick(app.pool,this.right.score,this.right.id),
+                new Promise(r=>setTimeout(r,limits.h1.holdMs))
+            ]);
+            if (run!==this.run) return;
             this.left=this.right;
             this.right=pick;
             this.draw(false,null,true);
-            this.say("is the anime on the right rated higher or lower?");
-            this.busy=false;
+            this.busy=false
         }catch(err){
             if(run!==this.run) return;
             console.error(err);
