@@ -17,6 +17,8 @@
     color: var(--fg);
     font-family: Arial, Helvetica, sans-serif;
     min-height: 100vh;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
  }
  button, select{
     font-family: monospace;
@@ -179,6 +181,11 @@
     transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
 }
 .card:hover img{ transform: scale(1.04);}
+@media (hover:hover){
+    .card:hover::before{
+        opacity:1
+    }
+}
 .info{
     position: relative;
     z-index: 3;
@@ -187,6 +194,11 @@
 }
 .info small{
     font-family: Arial, Helvetica, sans-serif;
+}
+@media (hover: hover){
+    .card:hover img{
+        transform: scale(1.04);
+    }
 }
 .info h3{
     margin:0.3rem 0 0.5rem;
@@ -228,6 +240,16 @@
     color: var(--fg);
     border: 1px solid var(--line);
     cursor: pointer;
+}
+@media(hover:hover){
+    .btn:not(:disabled){
+        background: var(--fg);
+        color: var(--bg);
+    }
+}
+.btn:not(:disabled):active{
+    background: var(--fg);
+    color:var(--bg)
 }
 .btn:not(:disabled):hover{
     background: var(--fg);
@@ -278,11 +300,87 @@
     animation: slideIn 0.4s cubic-bezier(0.21,1,0.36,1);}
 
 @media (max-width: 720px) {
-    .bar{flex-wrap: wrap;}
-    .board{grid-template-columns: 1fr;}
-    .card{height: 340px;}
-    .hud{flex-wrap: wrap;}
+    .bar{
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+    }
+    .brand{order: 1;}
+    .meta{
+        order: 2;
+        gap: 0.5rem;
+    }
+    .meta select{
+        font-size: 16px;
+        max-width: 170px;
+        padding: 0.3rem 0.4rem;
+    }
+    nav{
+        order: 3;
+        width: 100%;
+    }
+    .tabs{ width: 100%;}
+    .tab{
+        flex: 1;
+        min-height: 44px;
+        padding: 0.4rem 0.2rem;
+    }
+    .wrap{
+        margin: 0.75rem auto;
+        padding: 0 0 00.75rem;
+    }
+    .hud{
+        flex-wrap: wrap;
+        gap: 0.4rem 0.8rem;
+        padding: 0.6rem 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+    .hud p{
+        order: 3;
+        flex-basis: 100%;
+        font-size: 0.72rem;
+    }
+    .board{
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+    }
+    .card{
+        height: calc((100vh-250px)/2);
+        height: calc((100dvh-250px)/2);
+        min-height: 160px;
+        max-height: 340px;
+    }
+    .info{ padding: 0.8rem 1rem;}
+    .info h3{ padding: 1rem;}
+    .rate{font-size: 1.8rem;}
+    .btns{margin-top: 0.5rem;}
+    .btn{ min-height: 44px;}
+    .vs{
+        width: 34px;
+        height: 34px;
+    }
+    .px-box{
+        flex-wrap: nowrap;
+        gap: 0.8rem;
+    }
+    #px-canvas{
+        display: block;
+        width: 42%;
+        max-width: 200px;
+        height: auto;
+        flex-shrink: 0;
+    }
+    .choices{
+        min-width: 0;
+        gap: 0.5rem;
+    }
+    .choices .btn{
+        padding: 0.5rem 0.6rem;
+        min-height: 40px;
+        font-size: 0.75rem;
+    }
 }
+
 @media (prefers-reduced-motion: reduce){
     .slide{animation:none;}
     .glider, .card img{transition: none;}
