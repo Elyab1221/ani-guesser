@@ -52,3 +52,19 @@ const shareText=async text=>{
         return "share";
     }
 };
+const shareMode=async btn=>{
+    const pool=app.pool;
+    let text="";
+    if(app.mode==="h1" && (hl.streak||hl.pts)){
+        text=`ani guesser higher/lower (${pool}) - streak ${hl.streak}, ${hl.pts} pts`;
+    }else if(app.mode==="px" && (px.streak||px.pts)){
+        text=`ani guesser pixel rush (${pool}) - streak ${px.streak}, ${px.pts} pts`;
+    }else if(app.mode==="cl" && clues.total){
+        text=`ani guesser clues (${pool}) - ${clues.total} pts`;
+    }
+    const old=btn.dataset.label||btn.textContent;
+    btn.dataset.label=old;
+    const res=text?await shareText(text):"play first";
+    btn.textContent=res;
+    setTimeout(()=>{btn.textContent=old;},1500);
+};
