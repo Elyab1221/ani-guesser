@@ -104,6 +104,7 @@ const px={
         });
     },
     lose(text){
+        buzz([80,60,80]);
         const rec=store.save(this.streak,this.pts,"px");
         app.syncBest();
         this.lost=true;
@@ -113,6 +114,7 @@ const px={
         if (!this.timer) return;
         const left=this.left;
         this.finish(id);
+        buzz(40);
         if (id===this.ans.id){
             const gain=Math.round(left*limits.px.pts*limits.pools[app.pool].mult);
             this.streak+=1;

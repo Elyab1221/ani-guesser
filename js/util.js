@@ -12,3 +12,6 @@ const shuffle=list=>{
     }
     return list;
 };
+const buzz=p=>{
+    if (navigator.vibrate) navigator.vibrate(p);
+};

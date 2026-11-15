@@ -36,6 +36,7 @@ const hl={
         this.roll("r-val",b);
 
         if(ok){
+            buzz(40);
             const mult=limits.pools[app.pool].mult;
             this.streak+=1;
             this.pts+=Math.round(limits.h1.pts*mult);
@@ -44,6 +45,7 @@ const hl={
             this.say(`correct (${b.toFixed(2)} vs ${a.toFixed(2)})`);
             this.next();
         }else{
+            buzz([80,60,80]);
             const rec=store.save(this.streak,this.pts,"h1");
             app.syncBest();
             this.say(`game over - ${this.right.title} scored ${b.toFixed(2)}. press play again.`);

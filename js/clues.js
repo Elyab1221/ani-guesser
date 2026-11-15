@@ -69,12 +69,14 @@ const clues = {
     this.over = true;
     this.draw();
     if (id === this.target.id) {
+      buzz(40);
       this.total += this.stake;
       store.save(0, this.total);
       app.syncBest();
       document.getElementById("cl-total").textContent = this.total;
       document.getElementById("cl-msg").textContent = `correct +${this.stake} pts — ${this.target.title}`;
     } else {
+      buzz([80,60,80]);
       document.getElementById("cl-msg").textContent = `missed — it was ${this.target.title}`;
     }
   }
