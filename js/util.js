@@ -14,7 +14,9 @@ const shuffle=list=>{
 };
 const buzz=p=>{
     if (navigator.vibrate) navigator.vibrate(p);
+    const ok=!Array.isArray(p);
     sfx.play(Array.isArray(p)?"bad":"good");
+    stats.record(ok);
 };
 const dailySeed=()=>{
     const d=new Date();

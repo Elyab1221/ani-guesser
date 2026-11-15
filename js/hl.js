@@ -95,7 +95,7 @@ const hl={
         <div class="info">
         <small> ${esc(this.left.year)} . ${esc(this.left.studio)}</small>
         <h3> ${esc(this.left.title)}</h3>
-        <div class="rate"> ${this.left.score.toFixed(2)}</div>
+        ${show ? `<div class="rate"> ${this.left.score.toFixed(2)}</div>`:""}
         </div>
         </article>
         <article class="card ${slide ? "slide" : ""}" onmousemove="hl.spot(event,this)">
