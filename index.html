@@ -25,8 +25,10 @@
 
             <div class="meta">
                 <select id="pool">
-                    <option value="top"> top 50(1x) </option>
-                    <option value="deep">top 125(1.5x)</option>
+                    <option value="easy">easy (1x)</option>
+                    <option value="medium">medium (1.5x)</option>
+                    <option value="hard">hard (2x)</option>
+                    <option value="brutal">brutal (3x)</option>
                 </select>
                 <div class="best">
                     best<strong id="best-streak">0</strong> / <strong id="best-pts"> 0 </strong>
@@ -47,6 +49,7 @@
             </section>
 
             <section id="panel-px" class="panel">
+                <div> time<strong id="px-time"> 15s</strong> &nbsp; <span class="block-info">block<strong id=""px-grid>28px</strong></span> streak <strong id="px-streak">0</strong> &nbsp; pts<strong id="px-pts">0</strong></div>
                 <div class="hud">
                     <div> Time <strong id="px-time"> 15s </strong> &nbsp; block <strong id="px-grid">28px</strong></div>
                     <p id="px-msg"> guess the pixelated poster </p>

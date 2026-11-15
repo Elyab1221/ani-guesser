@@ -1,5 +1,6 @@
 const app={
-    pool: "top",
+    pool: "easy",
+    mode:"h1",
 
     init(){
         this.syncBest();
@@ -22,6 +23,8 @@ const app={
             btn.classList.add("active");
            this.moveGlider(btn);
            const m=btn.dataset.mode;
+           this.mode=m;
+           this.syncBest();
            document.querySelectorAll(".panel").forEach(p=>{
             p.classList.toggle("active", p.id===`panel-${m}`);
            });
@@ -43,6 +46,7 @@ const app={
             e.target.blur();
             hl.start();
             px.stop();
+            px.newRun();
             if (document.getElementById("panel-px").classList.contains("active")) px.start();
         });
         document.getElementById("reset").addEventListener("click",()=>hl.start());

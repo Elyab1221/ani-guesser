@@ -33,7 +33,7 @@ const px={
         if(this.timer||this.lost) this.newRun();
         clearInterval(this.timer);
         this.timer=null;
-        this.say("loadainf poster...");
+        this.say("loading poster...");
         document.getElementById("px-list").innerHTML="";
         document.getElementById("px-hint").textContent="";
         document.getElementById("px-time").textContent=`${limits.px.time}s`;
