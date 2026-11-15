@@ -19,6 +19,7 @@
                     <button class="tab active" data-mode="h1"> higher/lower </button>
                     <button class="tab" data-mode="px">pixel rush</button>
                     <button class="tab" data-mode="cl">clues</button>
+                    <button class="tab" data-mode="dy">daily</button>
                 </div>
 
             </nav>
@@ -70,6 +71,15 @@
                 <div id="cl-grid" class="cl-grid"></div>
                 <div id="cl-choices" class="choices"></div>
             </section>
+            <section id="panel-dy" class="panel">
+                <div class="hud">
+                    <div> round <strong id="dy-round"> 1/5</strong> &nbsp; score<strong id="dy-score">0</strong></div>
+                    <p id="dy-msg"> loading....</p>
+                    <button id="dy-next" class="btn">next</button>
+                </div>
+                <div id="dy-grid" class="cl-grid"></div>
+                <div id="dy-choices" class="choices"></div>
+            </section>
         </main>
         <script src="js/util.js"></script>
         <script src="js/limits.js"></script>
@@ -78,6 +88,7 @@
         <script src="js/hl.js"></script>
         <script src="js/px.js"></script>
         <script src="js/clues.js"></script>
+        <script src="js/daily.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>
