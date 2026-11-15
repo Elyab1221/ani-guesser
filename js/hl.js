@@ -18,7 +18,7 @@ const hl={
             if(run!==this.run) return;
             [this.left,this.right]=pair;
             this.draw(false);
-            this.say("is the anime on the right rated higher or lower?");
+            this.say("is the second anime on the higher or lower than the first left-right/up-to-down?");
             this.busy=false;
         }catch(err){
             if(run!==this.run) return;
