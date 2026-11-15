@@ -471,3 +471,7 @@ body.fx-ok .hud{animation: fx-pulse .45s;}
 .stats-box h2{margin:0 0 1rem}
 .stats-box p{margin:0 0 0.8rem;line-height:1.6; font-size: 1.2rem;}
 .stats-box .btn{margin-top:0.6rem}
+@media (max-width:720px){
+    #panel-px .next-row{top:0}
+    .next-row .btn{padding:0.7rem 1.5rem;font-size:0.85rem}
+}
