@@ -380,7 +380,42 @@
         font-size: 0.75rem;
     }
 }
-
+@media (max-width:440px){
+    .brand h1{
+        display: none;
+    }
+}
+@media(max-width:360px){
+    .hud{ padding: 0.5rem 0.7rem;}
+    .best{ font-size: 0.65rem;}
+}
+@media( max-height: 520px) and (orientation: landscape){
+    .brand h1{display: none;}
+    .nav{
+        order: 3;
+        width: auto;
+        flex: 1;
+    }
+    .meta{order: 3;}
+    .hud{flex-wrap: nowrap;}
+    .hud p{
+        order: 0;
+        flex-basis: auto;
+    }
+    #px-canvas{
+        width: auto;
+        height: calc(100vh -200px);
+        height: calc(100dvh -200px);
+        min-height: 120px;
+    }
+    .choices{ grid-template-columns: 1fr 1fr;}
+    .board{ grid-template-columns: 1fr 1fr;}
+    .card{
+        height: 52vh;
+        height: 52dvh;
+        min-height: 150px;
+    }
+}
 @media (prefers-reduced-motion: reduce){
     .slide{animation:none;}
     .glider, .card img{transition: none;}
