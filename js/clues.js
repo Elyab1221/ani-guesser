@@ -9,13 +9,13 @@ const clues = {
   async start() {
     try{this.pool=await api.pull(app.pool);}
     catch(err){
-        document.getElementById("cl-msg".textContent=`network error (${err.message}). press next`);
+        document.getElementById("cl-msg").textContent=`network error (${err.message}). press next`;
         return ;
     }
     this.over = false;
     this.step = 1;
     this.stake = limits.clues.startPts;
-    this.pool = await api.pull(app.pool);
+    // this.pool = await api.pull(app.pool);
     this.target = this.pool[Math.floor(Math.random() * this.pool.length)];
     this.draw();
     this.drawChoices();
@@ -58,14 +58,14 @@ const clues = {
       const c = this.pool[Math.floor(Math.random() * this.pool.length)];
       if (!opts.some(o => o.id === c.id)) opts.push(c);
     }
-    opts.sort(() => Math.random() - 0.5);
+    shuffle(opts);
 
     box.innerHTML = opts
       .map(o => `<button class="btn" onclick="clues.guess(${o.id})">${esc(o.title)}</button>`)
       .join("");
   },
   guess(id) {
-    if (this.over || this.target) return;
+    if (this.over) return;
     this.over = true;
     this.draw();
     if (id === this.target.id) {

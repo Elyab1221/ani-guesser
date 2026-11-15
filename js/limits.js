@@ -10,8 +10,8 @@ const limits={
     perPage:25,
     pools:{
         easy: {pages:2,mult:1,maxGap:10},
-        medium: {pages:6,mult:1.5,maxGap10},
-        hard: {pages:12,mult:2,maxGa10},
+        medium: {pages:6,mult:1.5,maxGap:10},
+        hard: {pages:12,mult:2,maxGap:10},
         brutal: {pages:20,mult:3,maxGap:0.1}
     },
     h1:{

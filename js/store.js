@@ -23,7 +23,7 @@ const store={
         if(pts>cur.pts) cur.pts=pts;
         all[mode]=cur;
         try{
-            localStorage.setItem(limits.key.JSON.stringify(all));
+            localStorage.setItem(limits.key,JSON.stringify(all));
         }catch{}
         return {cur,isBest};
     }

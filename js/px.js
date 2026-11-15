@@ -11,22 +11,22 @@ const px={
         document.getElementById("px-msg").textContent=text;
     },
     hud(){
-        document.getElementById("px-streak").textContent=this.strreak;
-        document.getAnimations("px-pts").textContent=this.pts;
+        document.getElementById("px-streak").textContent=this.streak;
+        document.getElementById("px-pts").textContent=this.pts;
     },
     newRun(){
         store.save(this.streak,this.pts,"px");
         app.syncBest();
-        this.srteak=0;
+        this.streak=0;
         this.pts=0;
         this.lost=false;
-        this.hud;
+        this.hud();
     },
     stop(){
         this.round++;
         clearInterval(this.timer);
         this.timer=null;
-        this.ans.null;
+        this.ans=null;
     },
     async start(){
         const round=++this.round;
@@ -64,7 +64,7 @@ const px={
     loop(){
         this.left=limits.px.time;
         this.paint(limits.px.startPx);
-        this.say("guess the pixlated poster");
+        this.say("guess the pixelated poster");
         this.timer=setInterval(()=>{
             this.left=Math.max(0,+(this.left-0.25).toFixed(2));
             const ratio=this.left/limits.px.time;
@@ -81,13 +81,13 @@ const px={
     paint(size){
         const c=document.getElementById("px-canvas");
         const ctx=c.getContext("2d");
-        const w=Math.max(1,Math.floor(c,width/size));
+        const w=Math.max(1,Math.floor(c.width/size));
         const h=Math.max(1,Math.floor(c.height/size));
-        const off=document.getElementById("canvas");
+        const off=document.createElement("canvas");
         off.width=w;
         off.height=h;
         off.getContext("2d").drawImage(this.img,0,0,w,h);
-        ctx.ImageSmoothingEnabled=false;
+        ctx.imageSmoothingEnabled=false;
         ctx.clearRect(0,0,c.width,c.height);
         ctx.drawImage(off,0,0,w,h,0,0,c.width,c.height);
     },
@@ -96,7 +96,7 @@ const px={
         this.timer=null;
         this.paint(1);
         document.getElementById("px-time").textContent=`${this.left.toFixed(1)}s`;
-        document.getElementById("#px-list button").forEach(b=>{
+        document.querySelectorAll("#px-list button").forEach(b=>{
             const id=Number(b.dataset.id);
             b.disabled=true;
             if(id===this.ans.id) b.classList.add("ok");
@@ -104,7 +104,7 @@ const px={
         });
     },
     lose(text){
-        const rec=store.save(this.streak.this.pts,"px");
+        const rec=store.save(this.streak,this.pts,"px");
         app.syncBest();
         this.lost=true;
         this.say(`${text}${rec.isBest ? "(new best)" : ""}. press next.`);
@@ -120,7 +120,7 @@ const px={
             this.hud();
             this.say(`correct - ${this.ans.title} (+${gain}). press next.`);
         }else{
-            this.lose(`wrong - answer was ${this.ans.titl}`);
+            this.lose(`wrong - answer was ${this.ans.title}`);
         }
     }
 };

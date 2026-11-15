@@ -18,7 +18,7 @@ const hl={
             if(run!==this.run) return;
             [this.left,this.right]=pair;
             this.draw(false);
-            this.say("is the second anime on the higher or lower than the first left-right/up-to-down?");
+            this.say("is the second anime rated higher or lower than the first.(left-right/up-to-down)?");
             this.busy=false;
         }catch(err){
             if(run!==this.run) return;
@@ -40,6 +40,7 @@ const hl={
             this.streak+=1;
             this.pts+=Math.round(limits.h1.pts*mult);
             this.hud();
+            store.save(this.streak,this.pts,"h1");
             this.say(`correct (${b.toFixed(2)} vs ${a.toFixed(2)})`);
             this.next();
         }else{
@@ -92,7 +93,7 @@ const hl={
         <div class="info">
         <small> ${esc(this.left.year)} . ${esc(this.left.studio)}</small>
         <h3> ${esc(this.left.title)}</h3>
-        ${show ? `<div class="rate"> ${this.left.score.toFixed(2)}</div>` : ""}
+        <div class="rate"> ${this.left.score.toFixed(2)}</div>
         </div>
         </article>
         <article class="card ${slide ? "slide" : ""}" onmousemove="hl.spot(event,this)">
@@ -118,3 +119,6 @@ const hl={
         document.getElementById("msg").textContent=text;
     }
 };
+
+//         ${show ? `<div class="rate"> ${this.left.score.toFixed(2)}</div>` : ""}
+// it was at line 95 just incase i want to chnage it 

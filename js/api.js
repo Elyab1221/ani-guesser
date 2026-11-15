@@ -194,7 +194,7 @@ choose(level,near=null,avoid=null){
     const seen=this.seenSet(level);
     const all=this.loaded(level).filter(x=>x.id!==avoid);
     if(!all.length) throw new Error("not enough anime");
-    let fresh=all.filter(x=>!seem.has(x.id));
+    let fresh=all.filter(x=>!seen.has(x.id));
     if(!fresh.length){
         seen.clear();
         fresh=all;
@@ -208,7 +208,11 @@ choose(level,near=null,avoid=null){
     seen.add(pick.id);
     return pick;
 },
-async pick(level="easy",near=null,avaoid=null){
+async pick(level="easy",near=null,avoid=null){
+    await this.grow(level);
+    return this.choose(level,near,avoid);
+},
+async pair(level="easy"){
     await this.grow(level);
     const a=this.choose(level);
     const b=this.choose(level,a.score,a.id);
@@ -223,7 +227,7 @@ async choices(level="easy",count=4){
         const i=Math.floor(Math.random()*others.length);
         options.push(others.splice(i,1)[0]);
     }
-    options.sort(()=>0.-Math.random());
+    shuffle(options);
     return {answer,options};
 }
 };
