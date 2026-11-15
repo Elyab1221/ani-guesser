@@ -28,6 +28,7 @@
             </nav>
 
             <div class="meta">
+                <button class="btn" onclick="document.getElementById('install-back').classList.add('open')">how to install</button></button>
                 <button id="stats-btn" class="btn" onclick="stats.open()">stats</button>
                 <button id="mute" class="btn" onclick="sfx.toggle()">sound on</button>
                 <select id="pool">
@@ -94,6 +95,17 @@
                 <P class="hint">best = streak / points at level you picked</P>
                 <button class="btn" onclick="stats.reset()">reset stats</button>
                 <button class="btn" onclick="stats.close()">close</button>
+            </div>
+        </div>
+        <div id="install-back" class="stats-back" onclick="if(event.target===this)this.classList.remove('open')">
+            <div class="stats-box">
+                <h2> install the gameeee!</h2>
+                <p>1.open the game's website once while online.</p>
+                <p>2. computer(chrome/edge): click the install icon at the rightend of adress bar.</p>
+                <p>3. android(chrome): tap the menu, then "install app".</p>
+                <p>4.iphone(safari): tap share, then "add to home screen".</p>
+                <p>5.open the game from the new icon on your desktop or homescreen.</p>
+                <button class="btn" onclick="document.getElementsById('install-back').classList.remove('open')">close</button>
             </div>
         </div>
         <script src="js/util.js"></script>
